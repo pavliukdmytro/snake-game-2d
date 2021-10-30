@@ -10,12 +10,18 @@ class Snake {
             x: 0,
             y: Math.floor((innerHeight / 2) - 14),
             items: [],
-            count: 20,
+            count: 2,
             direction: 'right',
         }
         this.accelerationDelayTime = null;
 
         this.events();
+    }
+
+    increase(color) {
+        const { oldX, oldY } = this.tail
+        const { items, width, height } = this.model;
+        items.push(new Rectangle(oldX, oldY, width, height, color));
     }
 
     fillItemsArray() {
@@ -131,6 +137,11 @@ class Snake {
 
     get head() {
         return this.model?.items?.[ 0 ];
+    }
+
+    get tail() {
+        const { items } = this.model;
+        return items[ items.length - 1 ];
     }
 
     checkCrash() {

@@ -1,7 +1,7 @@
 import randomColor from "../methods/randomColor";
 
 class Rectangle {
-    constructor(x, y, width, height, direction = 'right') {
+    constructor(x, y, width, height, color = randomColor()) {
         this.x = x;
         this.y = y;
         this.oldX = x;
@@ -9,8 +9,7 @@ class Rectangle {
 
         this.width = width;
         this.height = height;
-        this.direction = direction;
-        this.color = randomColor();
+        this.color = color;
     }
 }
 

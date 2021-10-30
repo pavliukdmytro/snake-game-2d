@@ -58,11 +58,22 @@ class App{
         this.model.error = false;
     }
 
+    checkCatchTarget() {
+        const { head } = this.snake;
+        const { model } = this.target;
+        if (head.x === model.x && head.y === model.y) {
+            this.snake.increase(model.color);
+            this.target.remove();
+        }
+    }
+
     checkGameState() {
         if (!!this.snake.checkCrash()) {
             this.model.stop = true;
             this.model.error = true;
         }
+
+        this.checkCatchTarget();
     }
 
     draw() {

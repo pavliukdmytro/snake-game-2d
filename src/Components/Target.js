@@ -6,9 +6,9 @@ class Target {
             width,
             height,
             step,
+            color: '',
             x: null,
             y: null,
-            color: randomColor(),
         }
         this.ctx = ctx;
     }
@@ -32,6 +32,7 @@ class Target {
         const { x, y, width, height, step } = this.model;
 
         if (x === null && y === null) {
+
             let newX = this.randomNumber(innerWidth - width);
             let newY = this.randomNumber(innerHeight - height);
 
@@ -40,9 +41,9 @@ class Target {
 
             this.model.x = newX;
             this.model.y = newY;
+            this.model.color = randomColor();
         }
         this.ctx.fillStyle = this.model.color;
-        // console.log(this.model.color);
         this.ctx.fillRect(this.model.x, this.model.y, width, height);
     }
 }
