@@ -17,6 +17,11 @@ class Target {
         return Math.floor(Math.random() * max);
     }
 
+    restart() {
+        this.model.y = null;
+        this.model.x = null;
+    }
+
 
     remove() {
         this.model.x = null;

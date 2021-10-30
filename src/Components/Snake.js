@@ -10,7 +10,7 @@ class Snake {
             x: 0,
             y: Math.floor((innerHeight / 2) - 14),
             items: [],
-            count: 2,
+            count: 20,
             direction: 'right',
         }
 
@@ -91,7 +91,6 @@ class Snake {
     events() {
         document.addEventListener('keydown', ({ code }) => {
             const { direction }  = this.model;
-
             if (code === 'ArrowUp' && direction !== 'down') {
                 this.model.direction = 'top';
             } else if (code === 'ArrowDown' && direction !== 'top') {
@@ -104,6 +103,15 @@ class Snake {
         })
     }
 
+    get head() {
+        return this.model?.items?.[ 0 ];
+    }
+
+    checkCrash() {
+        return this.model.items.slice(1).find(el => {
+            return (this.head.x === el.x && this.head.y === el.y);
+        });
+    }
 
     draw() {
         /** fill array Items **/
@@ -119,6 +127,12 @@ class Snake {
         });
 
 
+    }
+
+    restart() {
+        this.model.count = 2;
+        this.model.direction = 'right';
+        this.model.items = [];
     }
 }
 
