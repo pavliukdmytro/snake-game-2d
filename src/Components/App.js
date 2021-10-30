@@ -1,6 +1,8 @@
 import Snake from "./Snake";
 import Target from "./Target";
 import Message from "./Message";
+import Counter from "./Counter";
+import Timer from "./Timer";
 
 class App{
     constructor({ ctx, canvas }) {
@@ -13,6 +15,7 @@ class App{
             start: false,
             speed: 300,
             acceleration: 1,
+            timeStart: null,
         }
         this.ctx = ctx;
         this.canvas = canvas;
@@ -30,6 +33,10 @@ class App{
             height: this.model.height,
             step: this.model.step,
         });
+
+        this.counter = new Counter(ctx);
+
+        this.timer = new Timer(ctx);
 
         this.errorMessage = new Message({
             ctx,
@@ -77,9 +84,13 @@ class App{
     }
 
     draw() {
+        if (!this.model.timeStart) this.model.timeStart = new Date();
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.snake.draw();
         this.target.draw();
+        this.counter.draw();
+        this.timer.draw(this.model.timeStart);
         this.checkGameState();
     }
 

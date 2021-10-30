@@ -19,9 +19,10 @@ class Snake {
     }
 
     increase(color) {
-        const { oldX, oldY } = this.tail
+        const { oldX, oldY } = this.tail;
         const { items, width, height } = this.model;
         items.push(new Rectangle(oldX, oldY, width, height, color));
+        this.model.count = this.model.count + 1;
     }
 
     fillItemsArray() {
@@ -162,8 +163,6 @@ class Snake {
             this.moveItems(el, i);
             this.ctx.fillRect(el.x, el.y, el.width, el.height);
         });
-
-
     }
 
     restart() {
