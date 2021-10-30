@@ -13,6 +13,7 @@ class Snake {
             count: 20,
             direction: 'right',
         }
+        this.accelerationDelayTime = null;
 
         this.events();
     }
@@ -100,7 +101,32 @@ class Snake {
             } else if (code === 'ArrowLeft' && direction !== 'right') {
                 this.model.direction = 'left';
             }
-        })
+
+            switch (code) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowRight':
+                case 'ArrowLeft':
+                    if (this.accelerationDelayTime === null) {
+                        this.accelerationDelayTime =
+                            setTimeout(() => window.app.model.acceleration = 4,1000);
+                    }
+                    break;
+            }
+        });
+        document.addEventListener('keyup', ({ code }) => {
+            switch (code) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                case 'ArrowRight':
+                case 'ArrowLeft':
+                    clearTimeout(this.accelerationDelayTime);
+                    this.accelerationDelayTime = null;
+                    window.app.model.acceleration = 1;
+                    break;
+            }
+
+        });
     }
 
     get head() {

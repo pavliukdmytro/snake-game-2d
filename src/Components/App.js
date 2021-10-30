@@ -12,6 +12,7 @@ class App{
             error: false,
             start: false,
             speed: 300,
+            acceleration: 1,
         }
         this.ctx = ctx;
         this.canvas = canvas;
@@ -74,7 +75,12 @@ class App{
     core(oldDate) {
         requestAnimationFrame(() => {
             const date = Date.now();
-            const { speed, error, stop } = this.model;
+            const {
+                speed,
+                error,
+                stop,
+                acceleration
+            } = this.model;
 
             /**
              * main flow
@@ -85,7 +91,7 @@ class App{
             } else if (error) {
                 this.errorMessage.show();
                 this.core(date);
-            } else if (date - oldDate >= speed && !stop) {
+            } else if (date - oldDate >= speed / acceleration && !stop) {
                 this.draw();
                 this.core(date);
             } else {
