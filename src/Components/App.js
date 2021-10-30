@@ -63,6 +63,7 @@ class App{
         this.snake.restart();
         this.model.stop = false;
         this.model.error = false;
+        this.model.timeStart = new Date();
     }
 
     checkCatchTarget() {
