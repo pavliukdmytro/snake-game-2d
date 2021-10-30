@@ -3,6 +3,7 @@ import Target from "./Target";
 import Message from "./Message";
 import Counter from "./Counter";
 import Timer from "./Timer";
+import Pause from "./Pause";
 
 class App{
     constructor({ ctx, canvas }) {
@@ -37,6 +38,8 @@ class App{
         this.counter = new Counter(ctx);
 
         this.timer = new Timer(ctx);
+
+        this.pause = new Pause(ctx, canvas);
 
         this.errorMessage = new Message({
             ctx,
@@ -92,6 +95,7 @@ class App{
         this.target.draw();
         this.counter.draw();
         this.timer.draw(this.model.timeStart);
+        this.pause.draw();
         this.checkGameState();
     }
 
