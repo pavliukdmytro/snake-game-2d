@@ -3,6 +3,7 @@ import Target from "./Target";
 import Message from "./Message";
 import Counter from "./Counter";
 import Timer from "./Timer";
+import Controls from "./Controls";
 import Pause from "./Pause";
 
 class App{
@@ -23,13 +24,15 @@ class App{
 
         this.snake = new Snake({
             ctx,
+            canvas,
             width: this.model.width,
             height: this.model.height,
-            step: this.model.step
+            step: this.model.step,
         });
 
         this.target = new Target({
             ctx,
+            canvas,
             width: this.model.width,
             height: this.model.height,
             step: this.model.step,
@@ -39,7 +42,9 @@ class App{
 
         this.timer = new Timer(ctx);
 
-        this.pause = new Pause(ctx, canvas);
+        this.controls = new Controls(ctx, this.snake.setDirection);
+
+        // this.pause = new Pause(ctx, canvas);
 
         this.errorMessage = new Message({
             ctx,
@@ -95,7 +100,8 @@ class App{
         this.target.draw();
         this.counter.draw();
         this.timer.draw(this.model.timeStart);
-        this.pause.draw();
+        this.controls.draw();
+        // this.pause.draw();
         this.checkGameState();
     }
 

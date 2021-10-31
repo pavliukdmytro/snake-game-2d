@@ -1,11 +1,12 @@
 import randomColor from "../methods/randomColor";
 
 class Target {
-    constructor({ ctx, width, height, step }) {
+    constructor({ ctx, width, height, step, canvas }) {
         this.model = {
             width,
             height,
             step,
+            canvas,
             color: '',
             x: null,
             y: null,
@@ -29,12 +30,12 @@ class Target {
     }
 
     draw() {
-        const { x, y, width, height, step } = this.model;
+        const { x, y, width, height, step, canvas } = this.model;
 
         if (x === null && y === null) {
 
-            let newX = this.randomNumber(innerWidth - width);
-            let newY = this.randomNumber(innerHeight - height);
+            let newX = this.randomNumber(canvas.width - width);
+            let newY = this.randomNumber(canvas.height - height);
 
             newX = newX - (newX % step);
             newY = newY - (newY % step);

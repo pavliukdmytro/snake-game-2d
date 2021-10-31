@@ -1,14 +1,15 @@
 import Rectangle from './Rectangle';
 
 class Snake {
-    constructor({ ctx, step, width, height }) {
+    constructor({ ctx, step, width, height, canvas }) {
         this.ctx = ctx;
         this.model = {
             width,
             height,
             step,
+            canvas,
             x: 0,
-            y: Math.floor((innerHeight / 2) - 14),
+            y: Math.floor((canvas.height / 2) - 14),
             items: [],
             count: 2,
             direction: 'right',
@@ -39,8 +40,12 @@ class Snake {
         }
     }
 
+    setDirection = (direction) => {
+        this.model.direction = direction;
+    }
+
     moveItems(el, i) {
-        const { items, step, direction, width } = this.model;
+        const { items, step, direction, width, canvas } = this.model;
         let prev  = items[ i - 1 ];
 
         el.oldX = el.x;
@@ -50,7 +55,7 @@ class Snake {
             switch (direction) {
                 case 'right' : {
                     const newVal = step + el.x;
-                    if (newVal > innerWidth) {
+                    if (newVal > canvas.width) {
                         el.x = 0;
                     } else {
                         el.x = newVal;
@@ -61,7 +66,7 @@ class Snake {
                 case 'left' : {
                     const newVal = el.x - step;
                     if (newVal < 0) {
-                        el.x = innerWidth - (innerWidth % step);
+                        el.x = canvas.width - (canvas.width % step);
                     } else {
                         el.x = newVal;
                     }
@@ -71,7 +76,7 @@ class Snake {
                 case 'top' : {
                     const newVal = el.y - step;
                      if (newVal < 0) {
-                         el.y = (innerHeight - step) - (innerHeight - step) % step;
+                         el.y = (canvas.height - step) - (canvas.height - step) % step;
                      } else {
                          el.y = newVal;
                      }
@@ -81,7 +86,7 @@ class Snake {
                 case 'down' : {
                     const newVal = el.y + step;
 
-                    if (newVal > innerHeight) {
+                    if (newVal > canvas.height) {
                         el.y = 0;
                     } else {
                         el.y = newVal;
